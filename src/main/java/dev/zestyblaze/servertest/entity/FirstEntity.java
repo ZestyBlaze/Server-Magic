@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirstEntity extends Mob implements PolymerEntity {
@@ -25,15 +26,16 @@ public class FirstEntity extends Mob implements PolymerEntity {
 
     @Override
     public List<Pair<EquipmentSlot, ItemStack>> getPolymerVisibleEquipment(List<Pair<EquipmentSlot, ItemStack>> items, ServerPlayer player) {
+        var list = new ArrayList<Pair<EquipmentSlot, ItemStack>>(items.size());
         for (var entry : items) {
             if (entry.getFirst() == EquipmentSlot.HEAD) {
                 continue;
             } else {
-                items.add(Pair.of(entry.getFirst(), entry.getSecond()));
+                list.add(Pair.of(entry.getFirst(), entry.getSecond()));
             }
         }
-        items.add(new Pair<>(EquipmentSlot.HEAD, new ItemStack(Items.WITHER_SKELETON_SKULL)));
+        list.add(new Pair<>(EquipmentSlot.HEAD, new ItemStack(Items.WITHER_SKELETON_SKULL)));
 
-        return items;
+        return list;
     }
 }
